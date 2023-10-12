@@ -1,12 +1,12 @@
 import { StatusBar } from 'expo-status-bar'
-import { View } from 'react-native'
 import { Signin } from './src/screens/Signin'
+import { Providers } from './src/providers'
 
 export default function App() {
   return (
-    <View>
+    <Providers>
       <Signin />
       <StatusBar style="auto" />
-    </View>
+    </Providers>
   )
 }
