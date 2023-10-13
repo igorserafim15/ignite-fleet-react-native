@@ -1,10 +1,9 @@
+import { NativeBaseProvider } from 'native-base'
 import { ReactNode } from 'react'
-
-import { GluestackUIProvider } from '@gluestack-ui/themed'
-import { config } from '@gluestack-ui/config'
+import { theme } from '../theme'
 
 type ProvidersProps = { children: ReactNode }
 
 export function Providers({ children }: ProvidersProps) {
-  return <GluestackUIProvider config={config}>{children}</GluestackUIProvider>
+  return <NativeBaseProvider theme={theme}>{children}</NativeBaseProvider>
 }
