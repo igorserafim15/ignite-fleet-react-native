@@ -9,14 +9,17 @@ import {
 import { Signin } from './src/screens/Signin'
 import { Providers } from './src/providers'
 import { LoadingScreen } from './src/components/LoadingScreen'
+import { View } from 'native-base'
 
 export default function App() {
   const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_700Bold })
 
   return (
     <Providers>
-      <StatusBar style="light" translucent backgroundColor="transparent" />
-      {fontsLoaded ? <Signin /> : <LoadingScreen />}
+      <View backgroundColor="gray.800" flex={1}>
+        <StatusBar style="light" translucent backgroundColor="transparent" />
+        {fontsLoaded ? <Signin /> : <LoadingScreen />}
+      </View>
     </Providers>
   )
 }
