@@ -9,10 +9,13 @@ import * as WebBrowser from 'expo-web-browser'
 import * as Google from 'expo-auth-session/providers/google'
 import { ANDROID_CLIENT_ID, IOS_CLIENT_ID } from '@env'
 import { useEffect, useState } from 'react'
+import { Realm, useApp } from '@realm/react'
 
 WebBrowser.maybeCompleteAuthSession()
 
 export function Signin() {
+  const app = useApp()
+
   const [isAuthenticating, setIsAuthenticating] = useState(false)
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -34,13 +37,23 @@ export function Signin() {
 
   useEffect(() => {
     if (response?.type === 'success' && response.authentication?.idToken) {
-      const googleUrl = `https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${response.authentication.idToken}`
+      // const googleUrl = `https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${response.authentication.idToken}`
 
-      fetch(googleUrl)
-        .then((response) => response.json())
-        .then(console.log)
+      // fetch(googleUrl)
+      //   .then((response) => response.json())
+      //   .then(console.log)
+
+      console.log('token', response.authentication.idToken)
+
+      const credentials = Realm.Credentials.jwt(response.authentication.idToken)
+
+      console.log('credentials', credentials)
+
+      app.logIn(credentials).catch((err) => {
+        console.error(err)
+      })
     }
-  }, [response])
+  }, [app, response])
 
   return (
     <ImageBackground source={backgroundImg} style={{ flex: 1 }}>
